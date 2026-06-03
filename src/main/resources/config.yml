@@ -1,0 +1,40 @@
+# Configuration
+messages:
+  # Messages >> "(Your message)"
+
+## PvP Messages
+
+  PvP_Command_NotYellowZone: "&cYou can only toggle your PvP status manually while inside a Yellow Zone!"
+  PvP_Enable: "&aYour PvP is now enabled!"
+  PvP_Disable: "&eYour PvP status is now disabled!"
+
+  Fight_SafeZone: "&cYou can't fight in a safe zone!"
+  PvP_NotEnable: "&cYou must enable your PvP to attack players!"
+  PvP_EnemyNotEnable: "&cThis player doesn't have their PvP enabled!"
+
+  PvPStatus_ForceEnable: "&cYou entered a Dangerous Zone. Your PvP status has been forced ON!"
+  PvPStatus_ForceDisable: "&aYou left a dangerous Zone. Your PvP status has been automatically disabled."
+  PvPStatus_Neutral: "&eYou entered the Yellow Zone. PvP set to neutral. Use /pvp to toggle."
+
+## Zone Messages
+
+  Zone_Welcome_Message:
+    # Set the welcome message is enabled or not
+    enabled: true
+    Message: "&aWelcome to the %zone_name% %zone_type% &azone!"
+
+  # Zone Death Messages:
+
+  Green_Zone_Death:
+    enabled: true
+    message: "&a[Zone] You died in a green zone. your loot is safe."
+
+  Yellow_Zone_Death:
+    enabled: true
+    message: "&e[Zone] You died in Yellow zone. your loot is safe."
+
+  Black_Zone_Death:
+    enabled: true
+    # "%s" is player name, put this variable if you want to mention the player death name.
+    message: "&8[&4Black Zone&8] &cThe player &e%s &chas been killed." # (This is a global Message.)
+

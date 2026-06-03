@@ -1,0 +1,24 @@
+name: HZones
+version: '${version}'
+author: PinkJelly/Kasumiko
+website: https://github.com/Kasumikooo/HZones
+
+main: org.jellypink.HZones.Main
+api-version: '1.21'
+depend: [WorldEdit, WorldGuard]
+softdepend: [PlaceholderAPI]
+
+commands:
+  hzones:
+    description: Principal command.
+    usage: "/HZones <command>"
+    aliases: [ hz, hzones ]
+  pvp:
+    description: You can enable and Disable your PVP Mode
+    usage: "/pvp"
+    aliases: [ pvp ]
+
+permissions:
+  HZones.admin.zcreate:
+    description: "Allows creating regions."
+    default: op
