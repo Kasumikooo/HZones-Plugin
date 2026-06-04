@@ -31,7 +31,7 @@ Perfect for:
 
 ### Custom Zones
 
-Create and manage unlimited zones directly in-game.
+Create and manage zones directly in-game.
 
 - Multiple zone support
 - Persistent storage
@@ -58,7 +58,7 @@ HZones automatically updates player names depending on their PvP status.
 
 | Status | Color |
 |----------|----------|
-| Peaceful | 🟢 Green |
+| PvP Disabled | 🟢 Green |
 | PvP Enabled | 🔴 Red |
 
 This affects:
@@ -147,10 +147,20 @@ PvP: %hzones_pvp%
 
 | Permission | Description |
 |----------|----------|
-| `hzones.admin` | Full access |
-| `hzones.create` | Create zones |
-| `hzones.delete` | Delete zones |
-| `hzones.reload` | Reload plugin |
+| `hzones.admin.create` | Create zones |
+| `hzones.admin.list` | list zones |
+| `hzones.admin.delete` | Delete zones |
+| `hzones.reload.all` | Reload plugin |
+
+## Zone Types
+
+| Zone | PvP | Loot Drop | Description |
+|------|-----|-----------|-------------|
+| 🏙️ `City` | ❌ | ❌ | Safe areas such as spawn towns and cities. |
+| 🟢 `Green` | ❌ | ❌ | PvP is completely disabled. |
+| 🟡 `Yellow` | ❌ | ❌ | Players can freely toggle their PvP status. |
+| 🔴 `Red` | ✅ | ❌ | PvP is always enabled, but players keep their loot on death. |
+| ⚫ `Black` | ✅ | ✅ | Full-loot PvP zone. Players drop their items on death. |
 
 ---
 
@@ -174,6 +184,7 @@ PvP Status: Enabled
 ```
 
 ---
+
 
 ## Performance
 
