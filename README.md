@@ -125,7 +125,7 @@ PvP: %hzones_pvp%
 
 | Command | Description |
 |----------|----------|
-| `/hzones zone create <name>` | Create a zone |
+| `/hzones zone create <name> <type>` | Create a zone |
 | `/hzones zone delete <name>` | Delete a zone |
 | `/hzones zone list` | List all zones |
 
@@ -139,7 +139,7 @@ PvP: %hzones_pvp%
 
 | Command | Description |
 |----------|----------|
-| `/hzones reload` | Reload plugin configuration |
+| `/hzones reload all` | Reload plugin configuration |
 
 ---
 
