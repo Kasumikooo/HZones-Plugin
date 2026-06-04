@@ -3,6 +3,8 @@
 # HZones
 ### Advanced Zone Management for Minecraft Servers
 
+<img width="1874" height="438" alt="banner-hzones" src="https://github.com/user-attachments/assets/f6acdd02-f8c0-4b31-8b80-bdffae0a8619" />
+
 Create custom zones with configurable PvP behavior, PlaceholderAPI support, visual player status indicators, and seamless server integration.
 
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21+-green)
