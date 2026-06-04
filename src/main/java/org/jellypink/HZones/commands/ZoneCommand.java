@@ -88,7 +88,7 @@ public class ZoneCommand {
     }
 
     private void handleCreate(Player player, String[] args) {
-        if (!player.hasPermission("hzones.admin.zcreate")) {
+        if (!player.hasPermission("hzones.admin.create")) {
             player.sendMessage(MessageUtils.getColoredMessage("&cYou do not have permission to use this command!"));
             return;
         }
@@ -206,13 +206,13 @@ public class ZoneCommand {
         }
     }
 
+    // Region list
+
     private void handleList(Player player, String[] args) {
         if (!player.hasPermission("hzones.admin.list")) {
             player.sendMessage(MessageUtils.getColoredMessage("&cYou do not have permission to use this command!"));
             return;
         }
-
-        // Region list
 
         org.bukkit.World world = player.getWorld();
         World weWorld = BukkitAdapter.adapt(world);
