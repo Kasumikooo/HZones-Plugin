@@ -141,8 +141,6 @@ PvP: %hzones_pvp%
 |----------|----------|
 | `/hzones reload all` | Reload plugin configuration |
 
----
-
 ## Permissions
 
 | Permission | Description |
