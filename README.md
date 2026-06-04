@@ -106,6 +106,8 @@ PvP: %hzones_pvp%
 - Java 21+
 - Paper 1.21+
 - PlaceholderAPI (Optional)
+- WorldGuard (Required)
+- WorldEdit (Required)
 
 ### Steps
 
