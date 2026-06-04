@@ -37,6 +37,7 @@ Create and manage zones directly in-game.
 - Fast zone detection
 - Easy administration
 
+---
 
 ### PvP Management
 
@@ -48,6 +49,7 @@ Players can:
 - Disable PvP
 - See their current PvP state instantly
 
+---
 
 ### Player Status Colors
 
@@ -64,6 +66,7 @@ This affects:
 - Tab List Name
 - Custom Name
 
+---
 
 ### Real-Time Updates
 
@@ -73,6 +76,7 @@ Whenever a player changes PvP status:
 - Zone state refreshes automatically
 - No reconnect required
 
+---
 
 ### PlaceholderAPI Support
 
