@@ -14,7 +14,7 @@ import org.jellypink.HZones.config.MainConfigManager;
 import org.jellypink.HZones.listeners.player.ChatListener;
 import org.jellypink.HZones.listeners.player.PlayerDeathListener;
 import org.jellypink.HZones.listeners.player.PvPSystemListener;
-import org.jellypink.HZones.managers.PlaceholderAPIHook;
+import org.jellypink.HZones.hooks.PlaceholderAPIHook;
 import org.jellypink.HZones.utils.MessageUtils;
 import org.jellypink.HZones.managers.PvPSystemManager;
 

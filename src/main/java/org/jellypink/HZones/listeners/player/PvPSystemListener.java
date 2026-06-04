@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jellypink.HZones.Main;
@@ -87,10 +88,12 @@ public class PvPSystemListener implements Listener {
             player.setDisplayName(red);
             player.setPlayerListName(red);
             player.setCustomName(red);
+            player.setCustomNameVisible(true);
         } else {
             player.setDisplayName(green);
             player.setPlayerListName(green);
             player.setCustomName(green);
+            player.setCustomNameVisible(true);
         }
     }
 
@@ -143,7 +146,6 @@ public class PvPSystemListener implements Listener {
 
         updatePlayerNameColor(player);
     }
-
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {

@@ -88,13 +88,13 @@ public class ZoneCommand {
     }
 
     private void handleCreate(Player player, String[] args) {
-        if (!player.hasPermission("hyterMMO.admin.zcreate")) {
+        if (!player.hasPermission("hzones.admin.zcreate")) {
             player.sendMessage(MessageUtils.getColoredMessage("&cYou do not have permission to use this command!"));
             return;
         }
 
         if (args.length != 4) {
-            player.sendMessage(MessageUtils.getColoredMessage("Usage: /hmmo z create <region_id> <type>"));
+            player.sendMessage(MessageUtils.getColoredMessage("Usage: /hzones z create <region_id> <type>"));
             return;
         }
 
@@ -175,6 +175,7 @@ public class ZoneCommand {
 
             case YELLOW:
                 region.setFlag(Main.YELLOW_ZONE, StateFlag.State.ALLOW);
+                region.setFlag(Flags.SNOWMAN_TRAILS, StateFlag.State.ALLOW);
                 region.setFlag(Flags.BLOCK_BREAK, StateFlag.State.DENY);
                 region.setFlag(Flags.PVP, StateFlag.State.ALLOW);
                 region.setFlag(Flags.BLOCK_PLACE, StateFlag.State.DENY);
@@ -206,7 +207,7 @@ public class ZoneCommand {
     }
 
     private void handleList(Player player, String[] args) {
-        if (!player.hasPermission("hyterMMO.admin.list")) {
+        if (!player.hasPermission("hzones.admin.list")) {
             player.sendMessage(MessageUtils.getColoredMessage("&cYou do not have permission to use this command!"));
             return;
         }
@@ -265,17 +266,16 @@ public class ZoneCommand {
     // Delete command
 
     private void handleDelete(Player player, String[] args) {
-        if (!player.hasPermission("hyterMMO.admin.delete")) {
+        if (!player.hasPermission("hzones.admin.delete")) {
             player.sendMessage(MessageUtils.getColoredMessage("&cYou do not have permission to use this command."));
             return;
         }
 
-        if (args.length != 2) {
-            player.sendMessage(MessageUtils.getColoredMessage("&7Usage: /delete <region_id>"));
+        if (args.length != 3) {
+            player.sendMessage(MessageUtils.getColoredMessage("&7Usage: /hzones z delete <region_id>"));
             return;
         }
-
-        String regionId = args[1];
+        String regionId = args[2];
 
         org.bukkit.World world = player.getWorld();
         com.sk89q.worldedit.world.World weWorld = BukkitAdapter.adapt(world);
@@ -293,8 +293,8 @@ public class ZoneCommand {
             return;
         }
 
-        // Make sure the region has the flag that we created
-        StateFlag.State pvpState = region.getFlag(Flags.SNOWMAN_TRAILS);
+        var pvpState = region.getFlag(Flags.SNOWMAN_TRAILS);
+
         if (pvpState != StateFlag.State.ALLOW) {
             player.sendMessage(MessageUtils.getColoredMessage("&cThe region '" + regionId + "' was not created by this plugin. It will not be deleted."));
             return;
@@ -304,7 +304,7 @@ public class ZoneCommand {
 
         try {
             regionManager.save();
-            player.sendMessage(MessageUtils.getColoredMessage("&aSuccessfully deleted PVP region '" + regionId + "'."));
+            player.sendMessage(MessageUtils.getColoredMessage("&aSuccessfully deleted region '" + regionId + "'."));
         } catch (Exception e) {
             plugin.getLogger().log(Level.SEVERE, "An unexpected error occurred while saving regions after deleting " + regionId, e);
             player.sendMessage(MessageUtils.getColoredMessage("&cAn unexpected error occurred while saving the deletion."));
@@ -313,8 +313,8 @@ public class ZoneCommand {
 
     private void SendHelp(Player player) {
         player.sendMessage(MessageUtils.getColoredMessage("&6====== &bZones Help &6======"));
-        player.sendMessage(MessageUtils.getColoredMessage("&a/hmmo z create &7- Gestión de regiones del MMO"));
-        player.sendMessage(MessageUtils.getColoredMessage("&a/hmmo z delete &7- Gestión de monstruos personalizados"));
-        player.sendMessage(MessageUtils.getColoredMessage("&a/hmmo z list &7- Gestión de minería"));
+        player.sendMessage(MessageUtils.getColoredMessage("&a/hzones z create &7- Gestión de regiones del MMO"));
+        player.sendMessage(MessageUtils.getColoredMessage("&a/hzones z delete &7- Gestión de monstruos personalizados"));
+        player.sendMessage(MessageUtils.getColoredMessage("&a/hzones z list &7- Gestión de minería"));
     }
 }

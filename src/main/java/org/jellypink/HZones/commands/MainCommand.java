@@ -84,7 +84,8 @@ public class MainCommand implements CommandExecutor, TabExecutor {
 
     private void sendGeneralHelp(Player player) {
         player.sendMessage(MessageUtils.getColoredMessage("&6====== &bHZones Help &6======"));
-        player.sendMessage(MessageUtils.getColoredMessage("&a/hzones zone &7- Gestion of zones"));
+        player.sendMessage(MessageUtils.getColoredMessage("&a/hzones zone <subcommand> &7- Gestion of zones"));
+        player.sendMessage(MessageUtils.getColoredMessage("&a/pvp &7- PvP enable/disable"));
     }
 
 }

@@ -1,4 +1,4 @@
-package org.jellypink.HZones.managers;
+package org.jellypink.HZones.hooks;
 
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.util.Location;
@@ -9,6 +9,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.jellypink.HZones.managers.PvPSystemManager;
 import org.jellypink.HZones.models.ZoneFlagType;
 import org.jellypink.HZones.utils.MessageUtils;
 
@@ -24,7 +25,7 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "hyterMMO";
+        return "hzones";
     }
 
     @Override
@@ -39,29 +40,42 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onRequest(OfflinePlayer offlinePlayer, @NotNull String params) {
-        if (offlinePlayer != null && offlinePlayer.isOnline()) {
-            Player player = offlinePlayer.getPlayer();
+        if (offlinePlayer == null || !offlinePlayer.isOnline()) {
+            return null;
+        }
 
-            if (params.equalsIgnoreCase("zone")) {
-                Location wgLocation = BukkitAdapter.adapt(player.getLocation());
+        Player player = offlinePlayer.getPlayer();
+        if (player == null) {
+            return null;
+           }
 
-                RegionContainer container = getInstance().getPlatform().getRegionContainer();
-                RegionManager regionManager = container.get(BukkitAdapter.adapt(player.getWorld()));
+        if (params.equalsIgnoreCase("zone")) {
+            Location wgLocation = BukkitAdapter.adapt(player.getLocation());
 
-                if (regionManager != null) {
-                    ApplicableRegionSet applicableRegions = regionManager.getApplicableRegions(wgLocation.toVector().toBlockPoint());
+            RegionContainer container = getInstance().getPlatform().getRegionContainer();
+            RegionManager regionManager = container.get(BukkitAdapter.adapt(player.getWorld()));
 
-                    ZoneFlagType zone = ZoneFlagType.getActiveZone(applicableRegions);
+            if (regionManager != null) {
+                ApplicableRegionSet applicableRegions = regionManager.getApplicableRegions(wgLocation.toVector().toBlockPoint());
 
-                    if (zone != null) {
+                ZoneFlagType zone = ZoneFlagType.getActiveZone(applicableRegions);
+
+                if (zone != null) {
                         return MessageUtils.getColoredMessage(zone.getDisplayName());
-                    }
                 }
-
+            }
                 return MessageUtils.getColoredMessage("&aWilderness");
+        }
+
+        if (params.equalsIgnoreCase("pvp")) {
+            PvPSystemManager systemManager = new PvPSystemManager();
+
+            if (systemManager.hasPvPEnabled(player)) {
+                return MessageUtils.getColoredMessage("&fenabled");
+            } else {
+                return MessageUtils.getColoredMessage("&fdisabled");
             }
         }
         return null;
     }
-
 }

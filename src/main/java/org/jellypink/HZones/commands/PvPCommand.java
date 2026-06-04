@@ -43,10 +43,12 @@ public class PvPCommand implements CommandExecutor {
             return true;
         }
 
-        // Toggle PvP
         boolean currentStatus = pvpSystem.hasPvPEnabled(player);
         boolean newStatus = !currentStatus;
+
         pvpSystem.setPvP(player, newStatus);
+
+        listener.updatePlayerNameColor(player);
 
         if (newStatus) {
             player.sendMessage(MessageUtils.getColoredMessage(Main.ingameprefix + plugin.getMainConfigManager().getPvP_Enable()));

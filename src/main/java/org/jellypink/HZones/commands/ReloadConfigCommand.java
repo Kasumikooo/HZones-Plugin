@@ -52,7 +52,7 @@ public class ReloadConfigCommand{
     }
 
     public void ReloadHandle(CommandSender sender){
-        if (!sender.hasPermission("hzone.reload.all")) {
+        if (!sender.hasPermission("hzones.reload.all")) {
             sender.sendMessage(MessageUtils.getColoredMessage("&cYou do not have permission to use this command!"));
             return;
         }
