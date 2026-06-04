@@ -86,14 +86,14 @@ Available placeholders:
 
 | Placeholder | Description |
 |------------|-------------|
-| `%hzones_zone%` | Current zone name |
+| `%hzones_zone%` | Current zone name type |
 | `%hzones_pvp%` | Current PvP status |
 
 Example:
 
 ```yaml
-Zone: %hzones_zone%
-PvP: %hzones_pvp%
+Zone: Yellow
+PvP: Enable
 ```
 
 ---
@@ -171,14 +171,6 @@ PvP: %hzones_pvp%
 ### PvP Enabled
 
 <img width="250" height="28" alt="image" src="https://github.com/user-attachments/assets/4134f174-707d-476a-99d3-328436b3da58" />
-
-
-### PlaceholderAPI
-
-```text
-Current Zone: Spawn
-PvP Status: Enabled
-```
 
 ---
 
