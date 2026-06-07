@@ -28,6 +28,7 @@ public final class Main extends JavaPlugin {
     public static String ingameprefix = "&e[Zones] &7>> ";
 
     private MainConfigManager mainConfigManager;
+    private PvPSystemManager pvpSystemManager;
 
     public void onLoad() {
         // Flags Zone Create
@@ -36,15 +37,14 @@ public final class Main extends JavaPlugin {
         setRedZone();
         setBlackZone();
         setCityZone();
-
-        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null)
-            PlaceholderAPIHook.registerHook();
     }
-
     @Override
     public void onEnable() {
         this.pvpSystem = new PvPSystemManager();
         this.pvpSystemListener = new PvPSystemListener(this, this.pvpSystem);
+
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null)
+            new PlaceholderAPIHook(this).register();
 
         registerCommands();
         registerListeners();
@@ -53,6 +53,10 @@ public final class Main extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage("&a"+MessageUtils.asciiart));
 
+    }
+
+    public PvPSystemManager getPvPSystemManager() {
+        return this.pvpSystem;
     }
 
     @Override

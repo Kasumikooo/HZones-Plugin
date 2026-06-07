@@ -135,7 +135,6 @@ public class PvPSystemListener implements Listener {
         }
 
         else if (currentZone == ZoneFlagType.YELLOW) {
-
             if (previousZone == ZoneFlagType.RED || previousZone == ZoneFlagType.BLACK) {
                 if (pvpSystem.hasPvPEnabled(player)) {
                     pvpSystem.setPvP(player, false);

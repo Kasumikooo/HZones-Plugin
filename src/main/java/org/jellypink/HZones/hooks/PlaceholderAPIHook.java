@@ -9,6 +9,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.jellypink.HZones.Main;
 import org.jellypink.HZones.managers.PvPSystemManager;
 import org.jellypink.HZones.models.ZoneFlagType;
 import org.jellypink.HZones.utils.MessageUtils;
@@ -19,8 +20,10 @@ import static com.sk89q.worldguard.WorldGuard.getInstance;
 
 public class PlaceholderAPIHook extends PlaceholderExpansion {
 
-    public static void registerHook() {
-        new PlaceholderAPIHook().register();
+    private final Main plugin;
+
+    public PlaceholderAPIHook(Main plugin) {
+        this.plugin = plugin;
     }
 
     @Override
@@ -57,7 +60,6 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 
             if (regionManager != null) {
                 ApplicableRegionSet applicableRegions = regionManager.getApplicableRegions(wgLocation.toVector().toBlockPoint());
-
                 ZoneFlagType zone = ZoneFlagType.getActiveZone(applicableRegions);
 
                 if (zone != null) {
@@ -68,13 +70,11 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
         }
 
         if (params.equalsIgnoreCase("pvp")) {
-            PvPSystemManager systemManager = new PvPSystemManager();
 
-            if (systemManager.hasPvPEnabled(player)) {
+            if (plugin.getPvPSystemManager().hasPvPEnabled(player)) {
                 return MessageUtils.getColoredMessage("&fenabled");
-            } else {
-                return MessageUtils.getColoredMessage("&fdisabled");
             }
+                return MessageUtils.getColoredMessage("&fdisabled");
         }
         return null;
     }
