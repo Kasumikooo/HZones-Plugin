@@ -7,10 +7,12 @@ import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -115,7 +117,20 @@ public class PvPSystemListener implements Listener {
         }
 
         lastKnownZone.put(player.getUniqueId(), currentZone);
+
+        if (pvpSystem.hasPvPEnabled(player) &&
+                (previousZone == ZoneFlagType.RED || previousZone == ZoneFlagType.BLACK) &&
+                currentZone == ZoneFlagType.YELLOW &&
+                pvpSystem.isInCombat(player)) {
+
+            pvpSystem.setPvP(player, true);
+            updatePlayerNameColor(player);
+
+            return;
+        }
+
         handleAutomaticPvPStatus(player, currentZone, previousZone);
+
     }
 
     private void handleAutomaticPvPStatus(Player player, ZoneFlagType currentZone, ZoneFlagType previousZone) {
@@ -146,9 +161,58 @@ public class PvPSystemListener implements Listener {
         updatePlayerNameColor(player);
     }
 
+    // CombatLog
+
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageByEntityEvent event) {
+
+        if (!(event.getEntity() instanceof Player victim)) {
+            return;
+        }
+
+        if (!(event.getDamager() instanceof Player attacker)) {
+            return;
+        }
+
+        if (!pvpSystem.hasPvPEnabled(attacker)) return;
+        if (!pvpSystem.hasPvPEnabled(victim)) return;
+
+        pvpSystem.tagPlayer(attacker);
+        pvpSystem.tagPlayer(victim);
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+
+        pvpSystem.removeCombatTag(player);
+    }
+
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
+
+        if (pvpSystem.hasPvPEnabled(player) && pvpSystem.isInCombat(player)) {
+
+            player.setHealth(0);
+            Player killer = player.getKiller();
+            if (killer != null && killer.isOnline()) {
+
+                player.getWorld().strikeLightningEffect(player.getLocation());
+                killer.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
+
+                killer.getPlayer().sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getCombatLog_PlayerDisconnect()
+                        .replace("%player_name%", player.getName())));
+            }
+            plugin.getServer().broadcastMessage(MessageUtils.getColoredMessage("&c[Server] &f¡The player &b" +
+                    player.getName() + " &fhas disconnect in combat!"));
+            if(plugin.getMainConfigManager().getCombatLog_PlayerDisconnect_GlobalEnabled()){
+                String playerdisconnectglobal = MessageUtils.getColoredMessage(
+                        plugin.getMainConfigManager().getCombatLog_PlayerDisconnect_GlobalMessage()
+                                .replace("%player_name%", player.getName()));
+            }
+        }
 
         player.setDisplayName(player.getName());
         player.setPlayerListName(player.getName());

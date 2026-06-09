@@ -16,6 +16,15 @@ messages:
   PvPStatus_ForceDisable: "&aYou left a dangerous Zone. Your PvP status has been automatically disabled."
   PvPStatus_Neutral: "&eYou entered the Yellow Zone. PvP set to neutral. Use /pvp to toggle."
 
+  CombatLog_InCombat: "&cYou are now in combat!"
+  CombatLog_CannotDisable: "&cYou cannot disable PvP while in combat. (%time% s)"
+
+  CombatLog_PlayerDisconnect: "&a¡%player_name% left in combat!"
+  CombatLog_PlayerDisconnect_Global:
+  # Set the global message is enabled or not
+  enabled: true
+  message: "&c[Server] &f¡The player &b%player_name% &fhas disconnect in combat!"
+
 ## Zone Messages
 
   Zone_Welcome_Message:
@@ -32,6 +41,10 @@ messages:
   Yellow_Zone_Death:
     enabled: true
     message: "&e[Zone] You died in Yellow zone. your loot is safe."
+
+  Red_Zone_Death:
+    enabled: true
+    message: "&c[Zone] You died in a Red zone. You lost your loot."
 
   Black_Zone_Death:
     enabled: true

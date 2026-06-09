@@ -25,6 +25,13 @@ public class MainConfigManager {
     private String PvPStatus_ForceDisable;
     private String PvPStatus_Neutral;
 
+    private String CombatLog_InCombat;
+    private String CombatLog_CannotDisable;
+    private String CombatLog_PlayerDisconnect;
+
+    private boolean CombatLog_PlayerDisconnect_GlobalEnabled;
+    private String CombatLog_PlayerDisconnect_GlobalMessage;
+
     // Zones boolean
 
     private boolean Zone_Welcome_MessageEnabled;
@@ -35,6 +42,9 @@ public class MainConfigManager {
 
     private boolean Yellow_Zone_DeathEnabled;
     private String Yellow_Zone_Death;
+
+    private boolean Red_Zone_DeathEnabled;
+    private String Red_Zone_Death;
 
     private boolean Black_Zone_DeathEnabled;
     private String Black_Zone_Death;
@@ -68,6 +78,13 @@ public class MainConfigManager {
         PvPStatus_ForceDisable = config.getString("messages.PvPStatus_ForceDisable");
         PvPStatus_Neutral = config.getString("messages.PvPStatus_Neutral");
 
+        CombatLog_InCombat = config.getString("messages.CombatLog_InCombat");
+        CombatLog_CannotDisable = config.getString("messages.CombatLog_CannotDisable");
+
+        CombatLog_PlayerDisconnect = config.getString("messages.CombatLog_PlayerDisconnect");
+        CombatLog_PlayerDisconnect_GlobalEnabled = config.getBoolean("messages.CombatLog_PlayerDisconnect_Global.enabled");
+        CombatLog_PlayerDisconnect_GlobalMessage = config.getString("messages.CombatLog_PlayerDisconnect_Global.message");
+
         // Zones
 
         Zone_Welcome_MessageEnabled = config.getBoolean("messages.Zone_Welcome_Message.enabled");
@@ -79,6 +96,9 @@ public class MainConfigManager {
         Yellow_Zone_DeathEnabled = config.getBoolean("messages.Yellow_Zone_Death.enabled");
         Yellow_Zone_Death = config.getString("messages.Yellow_Zone_Death.message");
 
+        Red_Zone_DeathEnabled = config.getBoolean("messages.Red_Zone_Death.enabled");
+        Red_Zone_Death = config.getString("messages.Red_Zone_Death.message");
+
         Black_Zone_DeathEnabled = config.getBoolean("messages.Black_Zone_Death.enabled");
         Black_Zone_Death = config.getString("messages.Black_Zone_Death.message");
     }
@@ -88,29 +108,51 @@ public class MainConfigManager {
         loadConfig();
     }
 
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+    public boolean isBlack_Zone_DeathEnabled() {
+        return Black_Zone_DeathEnabled;
+    }
+
     public String getBlack_Zone_Death() {
         return Black_Zone_Death;
+    }
+
+    /* */
+
+    public boolean isRed_Zone_DeathEnabled() {
+        return Red_Zone_DeathEnabled;
+    }
+
+    public String getRed_Zone_Death() {
+        return Red_Zone_Death;
+    }
+
+
+    /* */
+
+    public boolean isYellow_Zone_DeathEnabled() {
+        return Yellow_Zone_DeathEnabled;
     }
 
     public String getYellow_Zone_Death() {
         return Yellow_Zone_Death;
     }
 
-    public boolean isBlack_Zone_DeathEnabled() {
-        return Black_Zone_DeathEnabled;
-    }
 
-    public boolean isYellow_Zone_DeathEnabled() {
-        return Yellow_Zone_DeathEnabled;
+    /* */
+
+
+    public boolean isGreen_Zone_DeathEnabled() {
+        return Green_Zone_DeathEnabled;
     }
 
     public String getGreen_Zone_Death() {
         return Green_Zone_Death;
     }
 
-    public boolean isGreen_Zone_DeathEnabled() {
-        return Green_Zone_DeathEnabled;
-    }
+
+    /* */
 
     public String getZone_Welcome_Message() {
         return Zone_Welcome_Message;
@@ -119,6 +161,10 @@ public class MainConfigManager {
     public boolean isZone_Welcome_MessageEnabled() {
         return Zone_Welcome_MessageEnabled;
     }
+
+
+    /* */
+
 
     public String getPvPStatus_Neutral() {
         return PvPStatus_Neutral;
@@ -154,5 +200,25 @@ public class MainConfigManager {
 
     public String getPvP_Command_NotYellowZone() {
         return PvP_Command_NotYellowZone;
+    }
+
+    public String getCombatLog_InCombat() {
+        return CombatLog_InCombat;
+    }
+
+    public String getCombatLog_CannotDisable() {
+        return CombatLog_CannotDisable;
+    }
+
+    public String getCombatLog_PlayerDisconnect() {
+        return CombatLog_PlayerDisconnect;
+    }
+
+    public boolean getCombatLog_PlayerDisconnect_GlobalEnabled() {
+        return CombatLog_PlayerDisconnect_GlobalEnabled;
+    }
+
+    public String getCombatLog_PlayerDisconnect_GlobalMessage() {
+        return CombatLog_PlayerDisconnect_GlobalMessage;
     }
 }

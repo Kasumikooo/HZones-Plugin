@@ -16,6 +16,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import org.jellypink.HZones.Main;
 import org.jellypink.HZones.config.MainConfigManager;
+import org.jellypink.HZones.managers.PvPSystemManager;
 import org.jellypink.HZones.models.ZoneFlagType;
 import org.jellypink.HZones.utils.MessageUtils;
 
@@ -30,6 +31,7 @@ public class PlayerDeathListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
+        PvPSystemManager pvpSystem = new PvPSystemManager(plugin);
 
         Location wgLocation = BukkitAdapter.adapt(player.getLocation());
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
@@ -48,7 +50,7 @@ public class PlayerDeathListener implements Listener {
 
         // call methods
         ZoneFlagType PlayerZone = ZoneFlagType.getActiveZone(applicableRegions);
-        String globalAlert = String.format(plugin.getMainConfigManager().getBlack_Zone_Death().replace("%s%", player.getName()));
+        String globalAlert = String.format(plugin.getMainConfigManager().getBlack_Zone_Death().replace("%s", player.getName()));
         MainConfigManager mainConfigManager = plugin.getMainConfigManager();
 
         if (PlayerZone != null){
@@ -76,6 +78,10 @@ public class PlayerDeathListener implements Listener {
                     event.setKeepInventory(true);
                     event.getDrops().clear();
                     event.setKeepLevel(true);
+
+                    if(mainConfigManager.isBlack_Zone_DeathEnabled()){
+                        player.sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getBlack_Zone_Death()));
+                    }
                     break;
                 case BLACK:
                     event.setKeepInventory(false);
@@ -95,5 +101,6 @@ public class PlayerDeathListener implements Listener {
         String globalAlert = String.format(plugin.getMainConfigManager().getBlack_Zone_Death().replace("%s%", player.getName()));
         player.getServer().broadcastMessage(MessageUtils.getColoredMessage(globalAlert));
     }
+
 }
 

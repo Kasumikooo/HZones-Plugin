@@ -1,9 +1,11 @@
 package org.jellypink.HZones.commands;
 
+import org.apache.logging.log4j.message.Message;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.jellypink.HZones.Main;
 import org.jellypink.HZones.listeners.player.PlayerDeathListener;
 import org.jellypink.HZones.listeners.player.PvPSystemListener;
@@ -40,6 +42,16 @@ public class PvPCommand implements CommandExecutor {
 
         if (currentZone != ZoneFlagType.YELLOW) {
             player.sendMessage(MessageUtils.getColoredMessage(Main.ingameprefix + plugin.getMainConfigManager().getPvP_Command_NotYellowZone()));
+            return true;
+        }
+
+        if (pvpSystem.isInCombat(player)) {
+
+            long time = pvpSystem.getRemainingCombatTime(player);
+
+            player.sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getCombatLog_CannotDisable()
+                    .replace("%time%", String.valueOf(time))));
+
             return true;
         }
 

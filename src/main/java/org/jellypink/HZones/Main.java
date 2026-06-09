@@ -7,6 +7,7 @@ import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jellypink.HZones.commands.MainCommand;
 import org.jellypink.HZones.commands.PvPCommand;
@@ -17,6 +18,10 @@ import org.jellypink.HZones.listeners.player.PvPSystemListener;
 import org.jellypink.HZones.hooks.PlaceholderAPIHook;
 import org.jellypink.HZones.utils.MessageUtils;
 import org.jellypink.HZones.managers.PvPSystemManager;
+import org.jellypink.HZones.utils.UpdateChecker;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class Main extends JavaPlugin {
 
@@ -40,7 +45,15 @@ public final class Main extends JavaPlugin {
     }
     @Override
     public void onEnable() {
-        this.pvpSystem = new PvPSystemManager();
+        new UpdateChecker(this, 135899).getLatestVersion(version -> {
+            if(this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                getLogger().log(Level.FINE, "Plugin is up to date!");
+            } else {
+                getLogger().log(Level.SEVERE, "Plugin has an update available!");
+            }
+        });
+
+        this.pvpSystem = new PvPSystemManager(this);
         this.pvpSystemListener = new PvPSystemListener(this, this.pvpSystem);
 
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null)
