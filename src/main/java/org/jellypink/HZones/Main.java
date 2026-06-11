@@ -7,7 +7,6 @@ import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jellypink.HZones.commands.MainCommand;
 import org.jellypink.HZones.commands.PvPCommand;
@@ -16,24 +15,27 @@ import org.jellypink.HZones.listeners.player.ChatListener;
 import org.jellypink.HZones.listeners.player.PlayerDeathListener;
 import org.jellypink.HZones.listeners.player.PvPSystemListener;
 import org.jellypink.HZones.hooks.PlaceholderAPIHook;
+import org.jellypink.HZones.listeners.regions.WorldGuardListener;
 import org.jellypink.HZones.utils.MessageUtils;
 import org.jellypink.HZones.managers.PvPSystemManager;
 import org.jellypink.HZones.utils.UpdateChecker;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class Main extends JavaPlugin {
 
     private PvPSystemManager pvpSystem;
     private PvPSystemListener pvpSystemListener;
+
     private String version = getDescription().getVersion();
 
     public static String prefix = "&bHZones &7>>";
     public static String ingameprefix = "&e[Zones] &7>> ";
 
     private MainConfigManager mainConfigManager;
-    private PvPSystemManager pvpSystemManager;
+    public MainConfigManager getMainConfigManager() {
+        return mainConfigManager;
+    }
 
     public void onLoad() {
         // Flags Zone Create
@@ -88,6 +90,7 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(this.pvpSystemListener, this);
+        getServer().getPluginManager().registerEvents(new WorldGuardListener(), this);
     }
 
     // Custom Flags
@@ -181,9 +184,5 @@ public final class Main extends JavaPlugin {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefix+" &cWorldGuard Has a Compatibility error."));
             }
         }
-    }
-
-    public MainConfigManager getMainConfigManager() {
-        return mainConfigManager;
     }
 }

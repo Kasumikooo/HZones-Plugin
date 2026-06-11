@@ -45,6 +45,7 @@ public class PlayerDeathListener implements Listener {
 
         if (isPluginRegion != StateFlag.State.ALLOW) {
             handleWildernessDeath(player, event);
+            handledeathStrikelight(player, event);
             return;
         }
 
@@ -68,7 +69,8 @@ public class PlayerDeathListener implements Listener {
                 case YELLOW:
                     event.setKeepInventory(true);
                     event.getDrops().clear();
-                    event.setKeepLevel(false);
+                    event.setKeepLevel(true);
+                    handledeathStrikelight(player, event);
 
                     if(mainConfigManager.isYellow_Zone_DeathEnabled()){
                         player.sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getYellow_Zone_Death()));
@@ -77,20 +79,20 @@ public class PlayerDeathListener implements Listener {
                 case RED:
                     event.setKeepInventory(true);
                     event.getDrops().clear();
-                    event.setKeepLevel(true);
+                    event.setKeepLevel(false);
+                    handledeathStrikelight(player, event);
 
-                    if(mainConfigManager.isBlack_Zone_DeathEnabled()){
-                        player.sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getBlack_Zone_Death()));
+                    if(mainConfigManager.isRed_Zone_DeathEnabled()){
+                        player.sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getRed_Zone_Death()));
                     }
                     break;
                 case BLACK:
                     event.setKeepInventory(false);
-                    Player playerdeath = player.getPlayer();
-                    org.bukkit.Location location = player.getLocation();
-                    playerdeath.getWorld().strikeLightningEffect(location);
+                    handledeathStrikelight(player, event);
 
                     if(mainConfigManager.isBlack_Zone_DeathEnabled()){
-                        player.sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getBlack_Zone_Death()));
+                        player.getServer().broadcastMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getBlack_Zone_Death()
+                                .replace("%s", player.getName())));
                     }
                     break;
             }
@@ -98,8 +100,14 @@ public class PlayerDeathListener implements Listener {
     }
 
     private void handleWildernessDeath(Player player, PlayerDeathEvent event) {
-        String globalAlert = String.format(plugin.getMainConfigManager().getBlack_Zone_Death().replace("%s%", player.getName()));
+        String globalAlert = String.format(plugin.getMainConfigManager().getBlack_Zone_Death().replace("%s", player.getName()));
         player.getServer().broadcastMessage(MessageUtils.getColoredMessage(globalAlert));
+    }
+
+    private void handledeathStrikelight(Player player, PlayerDeathEvent event) {
+        Player playerdeath = player.getPlayer();
+        org.bukkit.Location location = player.getLocation();
+        playerdeath.getWorld().strikeLightningEffect(location);
     }
 
 }

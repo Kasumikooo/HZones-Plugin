@@ -76,6 +76,16 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
             }
                 return MessageUtils.getColoredMessage("&fdisabled");
         }
+
+        if(params.equalsIgnoreCase("combatlog")) {
+
+            if (plugin.getPvPSystemManager().getRemainingCombatTime(player) > 0) {
+                long time = plugin.getPvPSystemManager().getRemainingCombatTime(player);
+
+                return MessageUtils.getColoredMessage("&f" + time);
+            }
+        }
+
         return null;
     }
 }

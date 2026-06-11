@@ -1,8 +1,13 @@
 package org.jellypink.HZones.models;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
+import org.bukkit.Location;
 import org.jellypink.HZones.Main;
 
 public enum ZoneFlagType {
@@ -47,5 +52,19 @@ public enum ZoneFlagType {
             }
         }
         return null;
+    }
+
+    private ZoneFlagType getZone(Location location) {
+
+        RegionContainer container = WorldGuard.getInstance()
+                .getPlatform()
+                .getRegionContainer();
+
+        RegionQuery query = container.createQuery();
+
+        ApplicableRegionSet regions =
+                query.getApplicableRegions(BukkitAdapter.adapt(location));
+
+        return ZoneFlagType.getActiveZone(regions);
     }
 }
