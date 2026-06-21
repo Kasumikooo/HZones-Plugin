@@ -51,3 +51,8 @@ messages:
     # "%s" is player name, put this variable if you want to mention the player death name.
     message: "&8[&4Black Zone&8] &cThe player &e%s &chas been killed." # (This is a global Message.)
 
+  Enter_In_Dangerous_Zone:
+    enabled: true
+    title: "&cYou enter in a dangerous ZONE!"
+    subtitle: "&7be careful"
+

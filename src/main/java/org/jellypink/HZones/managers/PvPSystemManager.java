@@ -1,5 +1,8 @@
 package org.jellypink.HZones.managers;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jellypink.HZones.Main;
@@ -44,7 +47,10 @@ public class PvPSystemManager {
         );
 
         if (!alreadyTagged) {
+            long time = getRemainingCombatTime(player);
+
             player.sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getCombatLog_InCombat()));
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("&cYou enter in combat"));
         }
     }
 

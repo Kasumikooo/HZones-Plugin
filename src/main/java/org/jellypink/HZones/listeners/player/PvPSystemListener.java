@@ -205,8 +205,6 @@ public class PvPSystemListener implements Listener {
                 killer.getPlayer().sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getCombatLog_PlayerDisconnect()
                         .replace("%player_name%", player.getName())));
             }
-            plugin.getServer().broadcastMessage(MessageUtils.getColoredMessage("&c[Server] &f¡The player &b" +
-                    player.getName() + " &fhas disconnect in combat!"));
             if(plugin.getMainConfigManager().getCombatLog_PlayerDisconnect_GlobalEnabled()){
                 String playerdisconnectglobal = MessageUtils.getColoredMessage(
                         plugin.getMainConfigManager().getCombatLog_PlayerDisconnect_GlobalMessage()

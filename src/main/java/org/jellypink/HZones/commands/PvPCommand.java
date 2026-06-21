@@ -1,6 +1,9 @@
 package org.jellypink.HZones.commands;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.logging.log4j.message.Message;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -51,7 +54,6 @@ public class PvPCommand implements CommandExecutor {
 
             player.sendMessage(MessageUtils.getColoredMessage(plugin.getMainConfigManager().getCombatLog_CannotDisable()
                     .replace("%time%", String.valueOf(time))));
-
             return true;
         }
 

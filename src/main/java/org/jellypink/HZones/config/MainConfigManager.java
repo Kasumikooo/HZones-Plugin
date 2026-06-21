@@ -49,6 +49,10 @@ public class MainConfigManager {
     private boolean Black_Zone_DeathEnabled;
     private String Black_Zone_Death;
 
+    private boolean Enter_In_Dangerous_ZoneEnabled;
+    private String Enter_In_Dangerous_ZoneTitle;
+    private String Enter_In_Dangerous_ZoneSubtitle;
+
     /*
     --------------------------
     */
@@ -101,6 +105,10 @@ public class MainConfigManager {
 
         Black_Zone_DeathEnabled = config.getBoolean("messages.Black_Zone_Death.enabled");
         Black_Zone_Death = config.getString("messages.Black_Zone_Death.message");
+
+        Enter_In_Dangerous_ZoneEnabled = config.getBoolean("messages.Enter_In_Dangerous_Zone.enabled");
+        Enter_In_Dangerous_ZoneTitle = config.getString("message.Enter_In_Dangerous_Zone.title");
+        Enter_In_Dangerous_ZoneSubtitle = config.getString("message.Enter_In_Dangerous_Zone.subtitle");
     }
 
     public void ReloadConfig(){
@@ -109,6 +117,21 @@ public class MainConfigManager {
     }
 
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+    public boolean IsEnter_In_Dangerous_ZoneEnabled(){
+        return Enter_In_Dangerous_ZoneEnabled;
+    }
+
+    public String getEnter_In_Dangerous_ZoneTitle(){
+        return Enter_In_Dangerous_ZoneTitle;
+    }
+
+    public String getEnter_In_Dangerous_ZoneSubtitle(){
+        return Enter_In_Dangerous_ZoneSubtitle;
+    }
+
+
+    /* is only java, isn't hard, is easy, java, java, java, wake up now, that was a dream, be happy today*/
 
     public boolean isBlack_Zone_DeathEnabled() {
         return Black_Zone_DeathEnabled;
